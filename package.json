@@ -1,0 +1,28 @@
+{
+  "name": "hexo-generator-wxjson",
+  "version": "1.0.0",
+  "description": "Generate restful json data for Hexo plugins.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "hexo-pagination": "^0.1.0",
+    "lodash.pick": "^4.4.0",
+    "nunjucks": "^3.0.1"
+  },
+  "keywords": [
+    "hexo",
+    "wxjson",
+    "json",
+    "generator",
+    "微信小程序",
+    "wx"
+  ],
+  "author": "justic",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JIAXInT/hexo-generator-wxjson.git"
+  }
+}
