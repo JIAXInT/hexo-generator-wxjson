@@ -1,35 +1,40 @@
+<!--
+ * @Description: English Document
+ * @Author: Justic
+ * @Date: 2024-11-21 09:32:40
+ * @github: https://github.com/JIAXInT
+ * @LastEditTime: 2024-11-21 09:32:40
+ * @LastEditors: Justic
+-->
 <div align="right">
-  language:
-  en
-  <a title="Chinese" href="/README.md">cn</a>
+  Language:
+  English
+  <a title="Chinese" href="/README.md">Chinese</a>
 </div>
 
-# hexo-generator-wxapi
-* Based on [hexo generator restful](https://www.npmjs.com/package/hexo-generator-restful)Modified to add a long list of specified articles (for the display of rotation chart)
-* Based on [hexo-generator-search](https://www.npmjs.com/package/hexo-generator-search), the article file alias is changed and added to facilitate the configuration of applet interface
+# hexo-generator-wxjson
 
-## Install
+- Modified based on [hexo-generator-restful](https://www.npmjs.com/package/hexo-generator-restful), added the generation of specified article lists (used for the display of carousel images).
+- Based on [hexo-generator-search](https://www.npmjs.com/package/hexo-generator-search), modifications have been made to add aliases for article files, facilitating the configuration of mini-program interfaces.
+- Modified based on [hexo-generator-wxapi](https://github.com/ryanuo/hexo-generator-wxapi), added the function of pinning and sorting articles.
+
+## Installation
 
 ```bash
-npm install hexo-generator-wxapi --save
+npm install hexo-generator-wxjson --save
 ```
 
-## Representative project
+## Configure the `_config.yml` file under hexo
 
-* [on behalf of the project](https://github.com/Rr210/hexo-wx-api)
-* Based on this, a wechat applet is designed
-
-## Under the configuration hexo file `_config.yml`
-
-* Add the following as the default configuration. If the attribute value is`false`, it means that it will not be generated
+- Add the following as the default configuration. A property value of `false` indicates that it will not be generated.
 
 ```yml
 restful_api:
-  #Site can be configured to selectively grow some properties of the array
-  # site: ['title'，'subtitle'，'description'，'author'，'since'，email'，'favicon'，'avatar']
-  # site: true # hexo.config mix theme.config
-  posts_size: 10 # article list pagination, 0 means no Pagination
-  posts_props: # article list item features to be generated
+  # The "site" can be configured as an array to selectively generate certain properties.
+  # site: ['title', 'subtitle', 'description', 'author', 'since', 'email', 'favicon', 'avatar']
+  # site: true        # hexo.config mix theme.config
+  posts_size: 10 # Article list pagination, 0 means no pagination.
+  posts_props: # Properties that need to be generated for article list items.
     title: true
     slug: true
     date: true
@@ -37,46 +42,47 @@ restful_api:
     comments: true
     path: true
     excerpt: false
-    cover: true # cover picture, take the first picture of the article
+    cover: true # Cover image, taking the first image of the article.
     content: false
     keywords: false
     categories: true
     tags: true
-  categories: true # classification data
-  use_category_slug: false # use slug is filename of category data
-  tags: true # tag data
-  use_tag_slug: false # use slug is filename of tag data
-  post: true # article data
-  pages: false # additional hexo page data, such as about
-  swipers_list: [] # generate the specified page information and fill in the name of your article folder, such as ['css','js'], without suffix. It is mainly used for the rotation map API
+  categories: true # Category data.
+  use_category_slug: false # Use slug for the filename of category data.
+  tags: true # Tag data.
+  use_tag_slug: false # Use slug for the filename of tag data.
+  post: true # Article data.
+  pages: false # Additional Hexo page data, such as About.
+  swipers_list: [] # Generate specified page information. Fill in the names of your article folders, such as ['css', 'js'], without the suffix. Mainly used for the API of carousel images.
   search_all:
-    enable: true   # default on
+    enable: true # Enabled by default.
     path: api/search.json
     field: post
     content: true
 ```
 
-## Document
+## Documentation
 
-*'domain 'is your deployed domain name address, eg: `https://u.mr90.top` Or `https://u.mr90.top/blog`
+- `Domain` is the domain address where you deploy, e.g., `https://u.mr90.top` or `https://u.mr90.top/blog`.
 
-Request method | request address | request details
------|-----|-----
-Get | domain + `/api/site.json ` | get all hexo configurations (station configuration and topic configuration)
-Get | domain + `/api/posts.json ` | if configured | `posts_Size: 0` does not page and gets all articles
-Get | domain + `/api/posts/:pagenum. json ` | get paging data. After setting the list classification, `:pagenum` is a dynamic variable (number of pages), eg: `/api/1.json` .
-Get | domain + `/api/tags.json` | get all article tags. If there is no tag, it will not be generated
-Get | domain + `/api/tags/:tagName.json ` | get the specified tag article list, `:tagName` is the custom tag name of your article, eg: `/api/tags/Web.json` .
-Get | domain + `/api/categories.json` | get the classification of all articles
-Get | domain + `/api/categories/:catename.json` | get the article list of the specified category
-Get | domain + `/api/articles/:slug.json` | obtain the detailed data of the article according to the other name of the article, ` : slug 'is the other name of the article
-Get | domain + `/api/swiper.json` | get the article list with the specified name. Eg: ` ['Web ',' hexo ',' Java '] ` the characters in the array are the different names of the specified articles. The function is mainly used for the specified dynamic configuration of wechat applet rotation map articles
-Get | domain + `/api/search.json` | obtain all documents for local and global search.
+| Request Method | Request URL                          | Request Details                                                                                                                                                                                                                                                                 |
+| -------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Get            | Domain + `/api/site.json`            | Get all Hexo configurations (both site configuration and theme configuration).                                                                                                                                                                                                  |
+| Get            | Domain + `/api/posts.json`           | If `posts_size: 0` is configured, there will be no pagination, and all articles will be retrieved.                                                                                                                                                                              |
+| Get            | Domain + `/api/posts/:PageNum.json`  | Get paginated data. After setting the list classification, `:PageNum` is a dynamic variable (page number), e.g., `/api/1.json`.                                                                                                                                                 |
+| Get            | Domain + `/api/tags.json`            | Get all article tags. If there are no tags, nothing will be generated.                                                                                                                                                                                                          |
+| Get            | Domain + `/api/tags/:TagName.json`   | Get the list of articles with the specified tag. `:TagName` is the custom tag name of your article, e.g., `/api/tags/web.json`.                                                                                                                                                 |
+| Get            | Domain + `/api/categories.json`      | Get all the classifications of articles.                                                                                                                                                                                                                                        |
+| Get            | Domain + `/api/categories/:CateName` | Get the list of articles in the specified classification.                                                                                                                                                                                                                       |
+| Get            | Domain + `/api/articles/:Slug.json`  | Get the detailed data of an article according to its alias. `:Slug` is the alias of the article.                                                                                                                                                                                |
+| Get            | Domain + `/api/swiper.json`          | Get the list of articles with the specified alias. For example, the characters in the array `['web', 'hexo', 'java']` are the aliases of the specified articles. This function is mainly used for the dynamic configuration of carousel image articles in WeChat mini-programs. |
+| Get            | Domain + `/api/search.json`          | Get all documents for local global search.                                                                                                                                                                                                                                      |
 
-### Get Implecit Pages
+### Get Implicit Pages
 
-Get the content of hexo implicit pages from the theme, such as about, etc. because implicit pages (except about and other navigation bar entry pages) generally do not provide direct access in hexo, developers calling this API need to know the full path, which is closed by default
-eg:
+Get the content of Hexo implicit pages from the theme, such as About, etc. Since implicit pages (except for navigation bar entry pages like About) generally do not provide a direct access entry in Hexo, developers who call this API need to know their complete paths. This interface is disabled by default.
+
+For example:
 
 ###### Request
 
